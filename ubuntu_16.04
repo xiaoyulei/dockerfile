@@ -6,5 +6,6 @@ RUN useradd -Groot,sudo -m -s /bin/bash xiaoyulei
 USER xiaoyulei
 WORKDIR /home/xiaoyulei
 RUN git clone https://github.com/YuleiXiao/emacsconfig.git $HOME/.emacs.d
-RUN git clone https://github.com/Andersbakken/rtags.git --recursive $HOME/rtags && mkdir -p $HOME/rtags/build && cd $HOME/rtags/build && cmake .. && make && make install
+RUN git clone https://github.com/Andersbakken/rtags.git --recursive $HOME/rtags && mkdir -p $HOME/rtags/build && cd $HOME/rtags/build && cmake .. && make
+ENV PATH $HOME/rtags/build/bin:$PATH
 CMD ["/usr/sbin/init"]
