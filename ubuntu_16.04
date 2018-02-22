@@ -2,7 +2,9 @@ FROM ubuntu:16.04
 MAINTAINER xiaoyulei
 RUN apt-get update && apt-get dist-upgrade -y && \
 apt-get install -y openssh-server cmake build-essential gcc g++ autoconf automake git emacs vim sysstat clang
+RUN useradd -Groot,sudo -m -s /bin/bash xiaoyulei
 USER xiaoyulei
+WORKDIR /home/xiaoyulei
 RUN git clone https://github.com/YuleiXiao/emacsconfig.git $HOME/.emacs.d
 RUN git clone https://github.com/Andersbakken/rtags.git $HOME/rtags && mkdir -p $HOME/rtags/build && cd $HOME/rtags/build && cmake .. && make && make install
 CMD ["/usr/sbin/init"]
