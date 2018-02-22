@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 MAINTAINER xiaoyulei
 
 RUN apt-get update && apt-get dist-upgrade -y && \
-apt-get install -y openssh-server cmake build-essential gcc g++ autoconf automake git emacs vim sysstat libclang-dev clang pkg-config zlib1g-dev openssl
+apt-get install -y wget openssh-server cmake build-essential gcc g++ autoconf automake git emacs vim sysstat libclang-dev clang pkg-config zlib1g-dev openssl
 
 RUN useradd -Groot,sudo -m -s /bin/bash xiaoyulei
 USER xiaoyulei
