@@ -21,4 +21,6 @@ cmake .. && make
 
 ENV GOROOT /home/xiaoyulei/tools/go
 ENV PATH $GOROOT/bin:/home/xiaoyulei/tools/rtags/build/bin:$PATH
+ENV TERM xterm-256color
+
 CMD ["/usr/sbin/init"]
