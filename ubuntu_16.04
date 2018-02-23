@@ -7,6 +7,7 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     apt-get autoclean
 
 RUN useradd -Groot,sudo -m -s /bin/bash xiaoyulei
+RUN echo "root:Test_12#$" | chpasswd && echo "xiaoyulei:Test_12#$" | chpasswd
 USER xiaoyulei
 WORKDIR /home/xiaoyulei
 
