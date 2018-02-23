@@ -1,8 +1,9 @@
 FROM ubuntu:16.04
 MAINTAINER xiaoyulei
 
-RUN apt-get update && apt-get dist-upgrade -y && \
-    apt-get install -y sudo git wget openssh-server cmake build-essential gcc g++ autoconf automake git emacs vim sysstat libclang-dev clang pkg-config zlib1g-dev libssl-dev bear && \
+RUN apt-get update && \
+    apt-get dist-upgrade -y && \
+    apt-get install -y sudo git wget silversearcher-ag openssh-server cmake build-essential gcc g++ autoconf automake git emacs vim sysstat libclang-dev clang pkg-config zlib1g-dev libssl-dev bear && \
     apt-get autoremove && \
     apt-get autoclean
 
@@ -31,4 +32,4 @@ ENV GOROOT /home/xiaoyulei/tools/go
 ENV PATH $GOROOT/bin:/home/xiaoyulei/tools/rtags/build/bin:$PATH
 ENV TERM xterm-256color
 
-CMD ["/usr/sbin/init"]
+CMD ["/sbin/init"]
