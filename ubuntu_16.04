@@ -7,6 +7,7 @@ RUN apt-get update && \
     apt-get autoremove && \
     apt-get autoclean
 
+RUN sed -i 's/^PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN useradd -Groot,sudo -m -s /bin/bash xiaoyulei
 RUN echo "root:Test_12#$" | chpasswd && echo "xiaoyulei:Test_12#$" | chpasswd
 USER xiaoyulei
@@ -21,16 +22,16 @@ RUN mkdir tools && \
     git clone https://github.com/Andersbakken/rtags.git --recursive $HOME/tools/rtags && \
     mkdir -p $HOME/tools/rtags/build && \
     cd $HOME/tools/rtags/build && \
-    cmake .. && make -sj && \
+    cmake .. && make && \
     mkdir -p $HOME/.config/systemd/user && \
     cp $HOME/tools/rtags/share/etc/services/system/* $HOME/.config/systemd/user/ && \
     sed -i 's#$RDM#/home/xiaoyulei/tools/rtags/build/bin/rdm#g' $HOME/.config/systemd/user/rdm.service && \
     systemctl --user enable rdm.socket
 
-RUN echo "GOROOT /home/xiaoyulei/tools/go" > /home/xiaoyulei/tools/env.sh && \
-    echo "PATH $GOROOT/bin:/home/xiaoyulei/tools/rtags/build/bin:$PATH" >> /home/xiaoyulei/tools/env.sh && \
-    echo "TERM xterm-256color" >> /home/xiaoyulei/tools/env.sh && \
-    echo "source /home/xiaoyulei/tools/env.sh >> $HOME/.bashrc"
+RUN echo "GOROOT $HOME/tools/go" > $HOME/tools/env.sh && \
+    echo "PATH $GOROOT/bin:$HOME/tools/rtags/build/bin:$PATH" >> $HOME/tools/env.sh && \
+    echo "TERM xterm-256color" >> $HOME/tools/env.sh && \
+    echo "source $HOME/tools/env.sh >> $HOME/.bashrc"
 
 USER root
 
