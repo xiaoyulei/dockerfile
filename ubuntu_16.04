@@ -21,7 +21,7 @@ RUN mkdir tools && \
     git clone https://github.com/Andersbakken/rtags.git --recursive $HOME/tools/rtags && \
     mkdir -p $HOME/tools/rtags/build && \
     cd $HOME/tools/rtags/build && \
-    cmake .. && make && \
+    cmake .. && make -sj && \
     mkdir -p $HOME/.config/systemd/user && \
     cp $HOME/tools/rtags/share/etc/services/system/* $HOME/.config/systemd/user/ && \
     sed -i 's#$RDM#/home/xiaoyulei/tools/rtags/build/bin/rdm#g' $HOME/.config/systemd/user/rdm.service && \
