@@ -28,9 +28,9 @@ RUN mkdir tools && \
     sed -i 's#$RDM#/home/xiaoyulei/tools/rtags/build/bin/rdm#g' $HOME/.config/systemd/user/rdm.service && \
     systemctl --user enable rdm.socket
 
-RUN echo "GOROOT $HOME/tools/go" > $HOME/tools/env.sh && \
-    echo "PATH $GOROOT/bin:$HOME/tools/rtags/build/bin:$PATH" >> $HOME/tools/env.sh && \
-    echo "TERM xterm-256color" >> $HOME/tools/env.sh && \
+RUN echo "export GOROOT=$HOME/tools/go" > $HOME/tools/env.sh && \
+    echo "export PATH=$GOROOT/bin:$HOME/tools/rtags/build/bin:$PATH" >> $HOME/tools/env.sh && \
+    echo "export TERM=xterm-256color" >> $HOME/tools/env.sh && \
     echo "source $HOME/tools/env.sh >> $HOME/.bashrc"
 
 USER root
