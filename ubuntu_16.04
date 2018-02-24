@@ -27,9 +27,11 @@ RUN mkdir tools && \
     sed -i 's#$RDM#/home/xiaoyulei/tools/rtags/build/bin/rdm#g' $HOME/.config/systemd/user/rdm.service && \
     systemctl --user enable rdm.socket
 
-ENV GOROOT /home/xiaoyulei/tools/go
-ENV PATH $GOROOT/bin:/home/xiaoyulei/tools/rtags/build/bin:$PATH
-ENV TERM xterm-256color
+RUN echo "GOROOT /home/xiaoyulei/tools/go" > /home/xiaoyulei/tools/env.sh && \
+    echo "PATH $GOROOT/bin:/home/xiaoyulei/tools/rtags/build/bin:$PATH" >> /home/xiaoyulei/tools/env.sh && \
+    echo "TERM xterm-256color" >> /home/xiaoyulei/tools/env.sh && \
+    echo "source /home/xiaoyulei/tools/env.sh >> $HOME/.bashrc"
+
 USER root
 
 CMD ["/sbin/init"]
