@@ -3,11 +3,11 @@ MAINTAINER xiaoyulei
 
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
-    apt-get install -y net-tools sudo git wget silversearcher-ag openssh-server cmake build-essential gcc g++ autoconf automake git emacs vim sysstat libclang-dev clang pkg-config zlib1g-dev libssl-dev bear && \
+    apt-get install -y net-tools git wget silversearcher-ag openssh-server cmake build-essential gcc g++ autoconf automake git emacs vim sysstat libclang-dev clang pkg-config zlib1g-dev libssl-dev bear && \
     apt-get autoremove && \
     apt-get autoclean
 
-RUN useradd -Groot,sudo -m -s /bin/bash xiaoyulei
+RUN useradd -Groot -m -s /bin/bash xiaoyulei
 RUN echo "root:Test_12#$" | chpasswd && echo "xiaoyulei:Test_12#$" | chpasswd
 USER xiaoyulei
 WORKDIR /home/xiaoyulei
