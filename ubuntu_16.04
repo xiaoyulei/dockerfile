@@ -29,7 +29,7 @@ RUN mkdir tools && \
     systemctl --user enable rdm.socket
 
 RUN echo "export GOROOT=$HOME/tools/go" > $HOME/tools/env.sh && \
-    echo "export PATH=$GOROOT/bin:$HOME/tools/rtags/build/bin:$PATH" >> $HOME/tools/env.sh && \
+    echo "export PATH=$HOME/tools/go/bin:$HOME/tools/rtags/build/bin:$PATH" >> $HOME/tools/env.sh && \
     echo "export TERM=xterm-256color" >> $HOME/tools/env.sh && \
     echo "source $HOME/tools/env.sh" >> $HOME/.bashrc
 
