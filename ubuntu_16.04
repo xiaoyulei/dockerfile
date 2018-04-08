@@ -20,6 +20,7 @@ RUN mkdir tools && \
     wget https://dl.google.com/go/go1.10.linux-amd64.tar.gz && \
     tar xf go1.10.linux-amd64.tar.gz && \
     rm go1.10.linux-amd64.tar.gz && \
+    git clone https://github.com/nsf/gocode.git && \
     git clone https://github.com/Andersbakken/rtags.git --recursive $HOME/tools/rtags && \
     mkdir -p $HOME/tools/rtags/build && \
     cd $HOME/tools/rtags/build && \
@@ -30,9 +31,11 @@ RUN mkdir tools && \
     systemctl --user enable rdm.socket
 
 RUN echo "export GOROOT=$HOME/tools/go" > $HOME/tools/env.sh && \
-    echo "export PATH=$HOME/tools/go/bin:$HOME/tools/rtags/build/bin:$PATH" >> $HOME/tools/env.sh && \
+    echo "export PATH=$HOME/tools/gocode:$HOME/tools/go/bin:$HOME/tools/rtags/build/bin:$PATH" >> $HOME/tools/env.sh && \
     echo "export TERM=xterm-256color" >> $HOME/tools/env.sh && \
-    echo "source $HOME/tools/env.sh" >> $HOME/.bashrc
+    echo "source $HOME/tools/env.sh" >> $HOME/.bashrc && \
+    source $HOME/tools/env.sh && \
+    cd $HOME/tools/gocode && go build    
 
 USER root
 
