@@ -34,6 +34,7 @@ RUN echo "export GOROOT=$HOME/tools/go" > $HOME/tools/env.sh && \
     echo "export PATH=$HOME/tools/gocode:$HOME/tools/go/bin:$HOME/tools/rtags/build/bin:$PATH" >> $HOME/tools/env.sh && \
     echo "export TERM=xterm-256color" >> $HOME/tools/env.sh && \
     echo "source $HOME/tools/env.sh" >> $HOME/.bashrc && \
+    ls -lh $HOME/tools/env.sh && \
     source $HOME/tools/env.sh && \
     cd $HOME/tools/gocode && go build    
 
