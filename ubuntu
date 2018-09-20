@@ -1,0 +1,36 @@
+FROM ubuntu
+MAINTAINER xiaoyulei
+
+RUN apt-get update && \
+    apt-get dist-upgrade -y && \
+    apt-get install -y sudo net-tools git wget silversearcher-ag openssh-server cmake build-essential gcc g++ autoconf automake git emacs vim sysstat libclang-dev clang pkg-config zlib1g-dev libssl-dev bear && \
+    apt-get autoremove && \
+    apt-get autoclean
+
+RUN sed -i 's/^PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN useradd -Groot,sudo -m -s /bin/bash xiaoyulei
+RUN echo "root:Test_12#$" | chpasswd && echo "xiaoyulei:Test_12#$" | chpasswd
+USER xiaoyulei
+WORKDIR /home/xiaoyulei
+
+RUN mkdir tools && \
+    cd tools && \
+    git clone https://github.com/YuleiXiao/emacsconfig.git && \
+    ln -s $PWD/emacsconfig $HOME/.emacs.d && \
+    git clone https://github.com/Andersbakken/rtags.git --recursive $HOME/tools/rtags && \
+    mkdir -p $HOME/tools/rtags/build && \
+    cd $HOME/tools/rtags/build && \
+    cmake .. && make && \
+    mkdir -p $HOME/.config/systemd/user && \
+    cp $HOME/tools/rtags/share/etc/services/system/* $HOME/.config/systemd/user/ && \
+    sed -i 's#$RDM#/home/xiaoyulei/tools/rtags/build/bin/rdm#g' $HOME/.config/systemd/user/rdm.service && \
+    systemctl --user enable rdm.socket
+
+RUN echo "export PATH=$HOME/tools/rtags/build/bin:$PATH" >> $HOME/tools/env.sh && \
+    echo "export TERM=xterm-256color" >> $HOME/tools/env.sh && \
+    echo "source $HOME/tools/env.sh" >> $HOME/.bashrc && \
+    . $HOME/tools/env.sh
+
+USER root
+
+CMD ["/sbin/init"]
