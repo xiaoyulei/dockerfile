@@ -1,11 +1,9 @@
 FROM ubuntu
 MAINTAINER xiaoyulei
 
-ENV DEBIAN_FRONTEND=noninteractive 
-ENV TZ=Asia/Shanghai
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
-    apt-get install -y sudo net-tools git wget silversearcher-ag openssh-server cmake build-essential gcc g++ autoconf automake git emacs vim sysstat libclang-dev clang pkg-config zlib1g-dev libssl-dev bear && \
+    DEBIAN_FRONTEND=noninteractive TZ=Asia/Shanghai apt-get install -y sudo net-tools git wget silversearcher-ag openssh-server cmake build-essential gcc g++ autoconf automake git emacs vim sysstat libclang-dev clang pkg-config zlib1g-dev libssl-dev bear && \
     apt-get autoremove && \
     apt-get autoclean
 
